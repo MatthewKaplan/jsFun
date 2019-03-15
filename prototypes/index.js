@@ -71,7 +71,8 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.map(kittie => kittie);
+    result.forEach(kittie => kittie.age += 2);
     return result;
   }
 };
@@ -102,6 +103,12 @@ const clubPrompts = {
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
+
+    // const result = clubs.map(club => club);
+    // result.forEach(club => {
+    //     let clubMembers = club.members;
+    //     console.log(clubMembers);
+    // });
 
     const result = 'REPLACE WITH YOUR RESULT HERE';
     return result;
@@ -139,7 +146,11 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.map(module => ({
+        mod: module.mod,
+        studentsPerInstructor: module.students / module.instructors
+      }));
+
     return result;
 
     // Annotation:
@@ -174,7 +185,11 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(cake => ({
+      flavor: cake.cakeFlavor,
+      inStock: cake.inStock
+    }));
+
     return result;
 
     // Annotation:
@@ -202,7 +217,7 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => cake.inStock > 0);
     return result;
 
     // Annotation:
@@ -213,7 +228,10 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue.inStock;
+    }, 0);
+
     return result;
 
     // Annotation:
@@ -225,8 +243,15 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = []
+    cakes.map(cake => cake.toppings)
+      .forEach(topping => {
+        topping.forEach(item => {
+          result.push(item);
+        })
+      });
+
+    return Array.from(new Set(result));
 
     // Annotation:
     // Write your annotation here as a comment
@@ -243,7 +268,20 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = {};
+    const toppings = cakes.map(cake => cake.toppings);
+
+    toppings.forEach(topping => { 
+      topping.forEach(item => {
+        result[item] = 0;
+      });
+    });
+    toppings.forEach(topping => {
+      topping.forEach(item => {
+        result[item]++;
+      });
+    });
+
     return result;
 
     // Annotation:
@@ -278,7 +316,7 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(classroom => classroom.program === 'FE');
     return result;
 
     // Annotation:
@@ -293,7 +331,17 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = {
+      feCapacity: 0,
+      beCapacity: 0
+    };
+
+    const frontEnd = classrooms.filter(classroom => classroom.program === 'FE');
+    const backEnd = classrooms.filter(classroom => classroom.program === 'BE');
+
+    result['feCapacity'] = frontEnd.reduce((total, classroom) => total + classroom.capacity, 0);
+    result['beCapacity'] = backEnd.reduce((total, classroom) => total + classroom.capacity, 0);
+
     return result;
 
     // Annotation:
@@ -303,7 +351,7 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => (a.capacity - b.capacity));
     return result;
 
     // Annotation:
@@ -333,7 +381,8 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const brewerys = breweries.map(beer => beer.beers.length);
+    const result = brewerys.reduce((total, beer) => total + beer); 
     return result;
 
     // Annotation:
@@ -349,7 +398,11 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.map(beer => ({
+      name: beer.name,
+      beerCount: beer.beers.length
+    }));
+
     return result;
 
     // Annotation:
@@ -409,7 +462,10 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.map(instructor => ({
+      name: instructor.name,
+      studentCount: cohorts[instructor.module - 1].studentCount
+    }));
     return result;
 
     // Annotation:
@@ -423,7 +479,21 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const numTeachers = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0
+    };
+
+    const result = {};
+
+
+    instructors.forEach(instructor => numTeachers[instructor.module]++);
+    cohorts.forEach(cohort => {
+        result[`cohort${cohort.cohort}`] = cohort.studentCount / numTeachers[cohort.module];
+    });
+
     return result;
 
     // Annotation:
