@@ -7,71 +7,105 @@
   <script type="text/javascript">
 
 
-
-const kitties = [
+const cakes = [
   {
-    name: 'Felicia',
-    age: 2,
-    color: 'grey'
+    cakeFlavor: 'dark chocolate',
+    filling: null,
+    frosting: 'dark chocolate ganache',
+    toppings: ['dutch process cocoa', 'toasted sugar', 'smoked sea salt'],
+    inStock: 15
   },
   {
-    name: 'Tiger',
-    age: 5,
-    color: 'orange'
+    cakeFlavor: 'yellow',
+    filling: 'citrus glaze',
+    frosting: 'chantilly cream',
+    toppings: ['berries', 'edible flowers'],
+    inStock: 14
   },
   {
-    name: 'Snickers',
-    age: 8,
-    color: 'orange'
+    cakeFlavor: 'white chiffon',
+    filling: 'mint and sage drizzle',
+    frosting: 'whipped sweet cream',
+    toppings: ['mint', 'cranberry', 'edible flowers'],
+    inStock: 0
   },
   {
-    name: 'Max',
-    age: 1,
-    color: 'tuxedo'
+    cakeFlavor: 'butter rum',
+    filling: 'ginger cardamom swirl',
+    frosting: 'spiced rum glaze',
+    toppings: ['crystallized ginger', 'toasted sugar'],
+    inStock: 9
+  },
+  {
+    cakeFlavor: 'vanilla',
+    filling: 'St Germaine',
+    frosting: 'whipped cream',
+    toppings: ['smoked sea salt', 'crystallized ginger', 'berries'],
+    inStock: 21
+  },
+  {
+    cakeFlavor: 'honey',
+    filling: 'chocolate and cayenne',
+    frosting: 'chocolate buttercream',
+    toppings: ['smoked sea salt', 'toasted sugar'],
+    inStock: 0
   }
 ];
 
 
+// Return an array of objects that include just the flavor of the cake and how
+// much of that cake is in stock e.g.
+// [ 
+//    { flavor: 'dark chocolate', inStock: 15 },
+//    { flavor: 'yellow', inStock: 14 },
+//    ..etc
+// ]
+
+// map through cakes array to access different objects 
+// create a new object with cake flavor and Stock  
+
+const results = cakes.map( cake => ({
+  flavor: cake.cakeFlavor,
+  inStock: cake.inStock
+}))
+
+console.log(results)
 
 
-  // Return an array of kitties who have all grown up by 2 years e.g.
-  // [{
-  //   name: 'Felicia',
-  //   age: 4,
-  //   color: 'grey'
-  // },
-  // {
-  //   name: 'Tiger',
-  //   age: 7,
-  //   color: 'orange'
-  // },
-  // ...etc]
+// Return an array of only the cakes that are in stock
+// e.g.
+// [
+//   {
+//   cakeFlavor: 'dark chocolate',
+//   filling: null,
+//   frosting: 'dark chocolate ganache',
+//   toppings: ['dutch process cocoa', 'toasted sugar', 'smoked sea salt'],
+//   inStock: 15
+// },
+// {
+//   cakeFlavor: 'yellow',
+//   filling: 'citrus glaze',
+//   frosting: 'chantilly cream',
+//   toppings: ['berries', 'edible flowers'],
+//   inStock: 14
+// },
+// ..etc
+// ]
 
+// fiter through the array of cakes and 
 
+  const results2 = cakes.filter(cake => cake.inStock > 0);
 
-const results = kitties.map(kittie => {
-  console.log(kittie);
-})
+  console.log(results2);
 
+// Return the total amount of cakes in stock e.g.
+// 59
 
+  const results3 = cakes.reduce((acc, curr) => {
+    return acc + curr.inStock;
+  }, 0);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  console.log(results3);
 
 
 
@@ -84,7 +118,12 @@ const results = kitties.map(kittie => {
 
 
 
-   
+
+
+
+
+
+
   </script>
 
 </body>
